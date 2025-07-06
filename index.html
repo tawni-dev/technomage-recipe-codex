@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tawni's Recipe Cards</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: radial-gradient(circle at 20% 80%, #000000 0%, #1a1a1a 40%, #000000 100%);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            color: #FFFFFF;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(128, 255, 0, 0.05) 0%, rgba(255, 68, 204, 0.05) 50%, rgba(204, 255, 0, 0.05) 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .recipe-card {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(26, 26, 26, 0.95) 100%);
+            border: 2px solid #80FF00;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 0 30px rgba(128, 255, 0, 0.3), inset 0 0 20px rgba(255, 68, 204, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .recipe-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(128, 255, 0, 0.03) 0%, rgba(255, 68, 204, 0.03) 100%);
+            pointer-events: none;
+        }
+        
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(128, 255, 0, 0.5), 0 0 20px rgba(255, 68, 204, 0.3);
+            border-color: #FF44CC;
+        }
+        
+        .recipe-title {
+            font-size: 2.5rem;
+            color: #80FF00;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(128, 255, 0, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .recipe-meta {
+            display: flex;
+            justify-content: space-around;
+            background: linear-gradient(135deg, rgba(128, 255, 0, 0.1) 0%, rgba(255, 68, 204, 0.1) 100%);
+            border: 1px solid rgba(128, 255, 0, 0.3);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            text-align: center;
+            margin: 5px;
+        }
+        
+        .meta-label {
+            font-weight: bold;
+            color: #CCFF00;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .meta-value {
+            color: #FFFFFF;
+            font-size: 1.1rem;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .ingredients, .storage, .tips {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(26, 26, 26, 0.7) 100%);
+            border: 1px solid rgba(255, 68, 204, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #FF44CC;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255, 68, 204, 0.5);
+        }
+        
+        .ingredient-item, .storage-item, .tip-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 8px;
+            background: linear-gradient(135deg, rgba(128, 255, 0, 0.05) 0%, rgba(255, 68, 204, 0.05) 100%);
+            border: 1px solid rgba(128, 255, 0, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .ingredient-item:hover, .storage-item:hover, .tip-item:hover {
+            border-color: #80FF00;
+            box-shadow: 0 0 15px rgba(128, 255, 0, 0.2);
+        }
+        
+        .ingredient-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 15px;
+            background: linear-gradient(135deg, #80FF00 0%, #CCFF00 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 0 10px rgba(128, 255, 0, 0.3);
+        }
+        
+        .instructions {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(26, 26, 26, 0.8) 100%);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(204, 255, 0, 0.5);
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin: 15px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(128, 255, 0, 0.05) 0%, rgba(255, 68, 204, 0.05) 100%);
+            border-radius: 10px;
+            border-left: 4px solid #80FF00;
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover {
+            border-left-color: #FF44CC;
+            box-shadow: 0 0 15px rgba(255, 68, 204, 0.2);
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #80FF00 0%, #CCFF00 100%);
+            color: #000000;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(128, 255, 0, 0.5);
+        }
+        
+        .transformation-badge {
+            background: linear-gradient(45deg, #FF44CC 0%, #80FF00 100%);
+            color: #000000;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(255, 68, 204, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .recipe-meta {
+                flex-direction: column;
+            }
+            
+            .recipe-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; color: #80FF00; font-size: 3rem; margin-bottom: 40px; text-shadow: 0 0 20px rgba(128, 255, 0, 0.7); text-transform: uppercase; letter-spacing: 3px;">⚡ AEQUUS NOX TECHNOMAGE RECIPE CODEX ⚡</h1>
+        
+        <!-- Oat-Based Green Roti -->
+        <div class="recipe-card">
+            <h2 class="recipe-title">Oat-Based Green Roti</h2>
+            <div class="recipe-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Calories</div>
+                    <div class="meta-value">~180 per roti</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Makes</div>
+                    <div class="meta-value">4-6 rotis</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Time</div>
+                    <div class="meta-value">25 minutes</div>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="ingredients">
+                    <h3 class="section-title">Ingredients</h3>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🥬</div>
+                        <span>1 cup super greens or spinach</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🌿</div>
+                        <span>1/4 cup fresh cilantro</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🧄</div>
+                        <span>1 clove garlic</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🥣</div>
+                        <span>3/4 cup rolled oats</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">💧</div>
+                        <span>1/4 - 1/2 cup water</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🌶️</div>
+                        <span>1/2 tsp cumin <span class="transformation-badge">Anti-inflammatory</span></span>
+                    </div>
+                </div>
+                
+                <div class="storage">
+                    <h3 class="section-title">Storage</h3>
+                    <div class="storage-item">
+                        <div class="ingredient-icon">❄️</div>
+                        <span><strong>Fridge:</strong> 3-4 days in parchment, reheat in pan</span>
+                    </div>
+                    <div class="storage-item">
+                        <div class="ingredient-icon">🧊</div>
+                        <span><strong>Freezer:</strong> Up to 1 month</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3 class="section-title">Instructions</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <span><strong>Blend greens:</strong> Add spinach, cilantro, garlic, and 1/4 cup water to blender. Blend until smooth green paste forms.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <span><strong>Grind oats:</strong> In food processor, pulse oats until they form fine flour consistency.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <span><strong>Make dough:</strong> Mix oat flour, green paste, and cumin. Add water gradually until soft, pliable dough forms.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <span><strong>Rest:</strong> Let dough rest 10 minutes covered with damp cloth.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <span><strong>Roll & cook:</strong> Divide into 4-6 balls. Roll thin, cook in hot pan 1-2 minutes per side until spotted.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Creamy Chicken Soup -->
+        <div class="recipe-card">
+            <h2 class="recipe-title">Creamy Chicken Soup</h2>
+            <div class="recipe-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Calories</div>
+                    <div class="meta-value">~250 per cup</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Makes</div>
+                    <div class="meta-value">3 cups (3 servings)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Time</div>
+                    <div class="meta-value">20 minutes</div>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="ingredients">
+                    <h3 class="section-title">Ingredients</h3>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🫒</div>
+                        <span>1 tbsp olive oil</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🧅</div>
+                        <span>1/2 large onion, diced</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🥕</div>
+                        <span>1 carrot, diced</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🥬</div>
+                        <span>1 celery stalk, diced</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🧄</div>
+                        <span>2 cloves garlic, minced</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍲</div>
+                        <span>3 cups chicken broth</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍗</div>
+                        <span>1 cup rotisserie chicken, shredded</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🥛</div>
+                        <span>1/2 cup Fairlife milk <span class="transformation-badge">Lighter</span></span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🧈</div>
+                        <span>1 tbsp light cream cheese</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🌶️</div>
+                        <span>1/2 tsp turmeric <span class="transformation-badge">Anti-inflammatory</span></span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🥬</div>
+                        <span>1 cup fresh spinach <span class="transformation-badge">Nutrient boost</span></span>
+                    </div>
+                </div>
+                
+                <div class="tips">
+                    <h3 class="section-title">Tips & Storage</h3>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">❄️</div>
+                        <span><strong>Freezes perfectly!</strong> Portion in mason jars, leave 1" headspace</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">🔥</div>
+                        <span><strong>Reheat tip:</strong> Microwave from frozen or thaw overnight</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">🥄</div>
+                        <span><strong>Beginner tip:</strong> Don't let garlic burn - just 30 seconds!</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3 class="section-title">Instructions</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <span><strong>Heat oil:</strong> In large pot, heat olive oil over medium heat for 1 minute.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <span><strong>Cook vegetables:</strong> Add onion, carrots, celery. Cook 5-7 minutes until onion looks clear.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <span><strong>Add garlic:</strong> Add minced garlic, cook 30 seconds until fragrant (don't burn!).</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <span><strong>Add broth & chicken:</strong> Pour in broth, bring to boil. Add chicken and seasonings.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <span><strong>Make creamy:</strong> Whisk milk with cream cheese, slowly stir into soup.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <span><strong>Add greens:</strong> Stir in spinach, cook 2 minutes until wilted. Taste and adjust seasoning.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- White Chicken Chili -->
+        <div class="recipe-card">
+            <h2 class="recipe-title">White Chicken Chili</h2>
+            <div class="recipe-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Calories</div>
+                    <div class="meta-value">~290 per cup</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Makes</div>
+                    <div class="meta-value">3 cups (3 servings)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Time</div>
+                    <div class="meta-value">20 minutes</div>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="ingredients">
+                    <h3 class="section-title">Ingredients</h3>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🫒</div>
+                        <span>1 tbsp olive oil</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🧅</div>
+                        <span>1/2 large onion, diced</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🧄</div>
+                        <span>1 clove garlic, minced</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🌶️</div>
+                        <span>1/2 can (2 oz) diced green chiles</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🫘</div>
+                        <span>1 can (15 oz) white beans, drained</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍲</div>
+                        <span>1.5 cups chicken broth</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍗</div>
+                        <span>1 cup rotisserie chicken, shredded</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🧈</div>
+                        <span>1/2 tbsp light cream cheese <span class="transformation-badge">Lighter</span></span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🥛</div>
+                        <span>1/4 cup Fairlife milk <span class="transformation-badge">Healthier</span></span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🥄</div>
+                        <span>Greek yogurt for serving <span class="transformation-badge">Protein boost</span></span>
+                    </div>
+                </div>
+                
+                <div class="tips">
+                    <h3 class="section-title">Spices & Storage</h3>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">🌿</div>
+                        <span><strong>Spices:</strong> 1/2 tsp cumin, 1/2 tsp oregano, 1/4 tsp chili powder</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">❄️</div>
+                        <span><strong>Freezes perfectly!</strong> Cool completely before freezing</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">🥄</div>
+                        <span><strong>Serving tip:</strong> Add fresh Greek yogurt when reheating</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3 class="section-title">Instructions</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <span><strong>Heat & sauté:</strong> Heat oil, cook onion 5 minutes until clear and soft.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <span><strong>Add aromatics:</strong> Add garlic (30 seconds), then chiles and spices (1 minute).</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <span><strong>Add beans & broth:</strong> Add white beans and broth, bring to boil.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <span><strong>Simmer with chicken:</strong> Add chicken, reduce heat, simmer 15 minutes.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <span><strong>Make creamy:</strong> Whisk cream cheese with milk, stir into chili.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <span><strong>Serve:</strong> Season to taste, top with Greek yogurt instead of sour cream!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cranberry Salsa -->
+        <div class="recipe-card">
+            <h2 class="recipe-title">Cranberry Salsa (Your Signature!)</h2>
+            <div class="recipe-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Calories</div>
+                    <div class="meta-value">~35 per 1/4 cup</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Makes</div>
+                    <div class="meta-value">2 cups (8 servings)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Time</div>
+                    <div class="meta-value">15 minutes</div>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="ingredients">
+                    <h3 class="section-title">Ingredients</h3>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🔴</div>
+                        <span>1 cup fresh cranberries</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🫑</div>
+                        <span>1/2 red bell pepper, finely diced</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🧅</div>
+                        <span>1/4 red onion, finely diced</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🌶️</div>
+                        <span>1/2 jalapeño, seeded & minced (optional)</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🌿</div>
+                        <span>2 tbsp fresh cilantro, chopped</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍋</div>
+                        <span>Juice of 1/2 lime</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍯</div>
+                        <span>1 tbsp honey or maple syrup</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🌶️</div>
+                        <span>1/4 tsp chili powder <span class="transformation-badge">Your signature!</span></span>
+                    </div>
+                </div>
+                
+                <div class="tips">
+                    <h3 class="section-title">Uses & Storage</h3>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">🍗</div>
+                        <span><strong>Perfect with:</strong> Rotisserie chicken, crackers, or as yogurt mix-in</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">❄️</div>
+                        <span><strong>Storage:</strong> Keeps 1 week in fridge - flavors get better!</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">🧊</div>
+                        <span><strong>Freeze tip:</strong> Freeze in ice cube trays for portion control</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3 class="section-title">Instructions</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <span><strong>Prep cranberries:</strong> Roughly chop fresh cranberries (or pulse in food processor 3-4 times).</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <span><strong>Dice vegetables:</strong> Finely dice bell pepper and onion into small, uniform pieces.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <span><strong>Prep jalapeño:</strong> Cut in half, remove seeds with spoon, mince finely (wash hands after!).</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <span><strong>Make dressing:</strong> In small bowl, whisk lime juice, honey, chili powder, and salt.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <span><strong>Combine:</strong> Mix all ingredients, pour dressing over, stir well.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <span><strong>Let flavors meld:</strong> Rest 15 minutes before serving for best flavor!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Harlow House Salad -->
+        <div class="recipe-card">
+            <h2 class="recipe-title">Harlow House Salad</h2>
+            <div class="recipe-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Calories</div>
+                    <div class="meta-value">~320 per serving</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Serves</div>
+                    <div class="meta-value">1 generous portion</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Time</div>
+                    <div class="meta-value">15 minutes</div>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="ingredients">
+                    <h3 class="section-title">Salad Ingredients</h3>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🥗</div>
+                        <span>4 cups mixed organic salad greens</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🔴</div>
+                        <span>1 large roasted beet, spiralized</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🥕</div>
+                        <span>1 large carrot, spiralized</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🌻</div>
+                        <span>2 tbsp sunflower seeds</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🌱</div>
+                        <span>1 tbsp hemp seeds</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍗</div>
+                        <span>3 oz rotisserie chicken <span class="transformation-badge">Protein boost</span></span>
+                    </div>
+                </div>
+                
+                <div class="ingredients">
+                    <h3 class="section-title">Lemon Ginger Dressing</h3>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍋</div>
+                        <span>3 tbsp fresh lemon juice</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🫚</div>
+                        <span>1 tbsp fresh ginger, grated <span class="transformation-badge">Anti-inflammatory</span></span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🫒</div>
+                        <span>2 tbsp olive oil</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍯</div>
+                        <span>1 tsp maple syrup or agave</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🧂</div>
+                        <span>1/4 tsp sea salt + pinch black pepper</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3 class="section-title">Instructions</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <span><strong>Prep beets:</strong> Roast whole beets at 400°F for 45 minutes until tender. Cool, peel, spiralize.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <span><strong>Make dressing:</strong> Whisk all dressing ingredients together in small bowl.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <span><strong>Spiralize carrot:</strong> Use spiralizer or vegetable peeler to create ribbon strips.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <span><strong>Arrange beautifully:</strong> Place greens in bowl, arrange beet and carrot spirals in alternating rings.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <span><strong>Finish & serve:</strong> Sprinkle seeds in center, add chicken, drizzle dressing just before eating.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Super Greens Lemonade -->
+        <div class="recipe-card">
+            <h2 class="recipe-title">Super Greens Lemonade</h2>
+            <div class="recipe-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Calories</div>
+                    <div class="meta-value">~45 per 16oz</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Makes</div>
+                    <div class="meta-value">1 large serving</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Time</div>
+                    <div class="meta-value">5 minutes</div>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="ingredients">
+                    <h3 class="section-title">Ingredients</h3>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🥬</div>
+                        <span>1 cup fresh spinach</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🥬</div>
+                        <span>1/2 cup kale, stems removed</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🥒</div>
+                        <span>1/2 cucumber, peeled</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍋</div>
+                        <span>Juice of 2 lemons</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍯</div>
+                        <span>1-2 tbsp raw honey (or stevia)</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🌱</div>
+                        <span>1/4 tsp chlorella powder <span class="transformation-badge">Detox boost</span></span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">💧</div>
+                        <span>1 cup cold water + ice</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">✨</div>
+                        <span>Sparkling water (optional for fizz)</span>
+                    </div>
+                </div>
+                
+                <div class="tips">
+                    <h3 class="section-title">Tips & Uses</h3>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">🧊</div>
+                        <span><strong>Freeze hack:</strong> Freeze in ice cube trays for instant green boost</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">🥤</div>
+                        <span><strong>Kombucha mix:</strong> Add to your favorite kombucha for probiotic power</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">💪</div>
+                        <span><strong>Post-workout:</strong> Perfect for after Chloe Ting workouts</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3 class="section-title">Instructions</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <span><strong>Blend greens:</strong> Add spinach, kale, cucumber, and water to blender. Blend until smooth.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <span><strong>Strain (optional):</strong> Pour through fine mesh strainer for ultra-smooth texture.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <span><strong>Add flavor:</strong> Stir in lemon juice, honey, and chlorella powder until dissolved.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <span><strong>Serve fresh:</strong> Pour over ice, top with sparkling water for fizzy version.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <span><strong>Storage:</strong> Keeps 2 days in fridge - stir before drinking!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Frozen Grape Snacks -->
+        <div class="recipe-card">
+            <h2 class="recipe-title">Frozen Fruit Snack Collection</h2>
+            <div class="recipe-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Calories</div>
+                    <div class="meta-value">45-60 per cup</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Prep Time</div>
+                    <div class="meta-value">10 min + freeze</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Keeps</div>
+                    <div class="meta-value">1 month frozen</div>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="ingredients">
+                    <h3 class="section-title">Base Fruits</h3>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍇</div>
+                        <span>2 cups grapes (any color)</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🔴</div>
+                        <span>1 cup fresh cranberries</span>
+                    </div>
+                </div>
+                
+                <div class="ingredients">
+                    <h3 class="section-title">Coating Options</h3>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🌶️</div>
+                        <span><strong>Mexican Lime Chili:</strong> Lime juice + chili powder</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍋</div>
+                        <span><strong>Lemon Drop:</strong> Lemon juice + stevia + cinnamon</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍊</div>
+                        <span><strong>Orange Zest:</strong> Orange zest + stevia</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🫚</div>
+                        <span><strong>Ginger Lime:</strong> Ginger powder + lime juice</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍯</div>
+                        <span><strong>Vanilla Dreams:</strong> Vanilla extract + monk fruit</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3 class="section-title">Instructions</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <span><strong>Prep fruit:</strong> Wash and dry grapes and cranberries completely (wet fruit won't coat well).</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <span><strong>Choose coating:</strong> Pick your mood - sweet, spicy, or tart. Mix coating ingredients in small bowl.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <span><strong>Coat fruit:</strong> Toss fruit with coating mixture until evenly covered.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <span><strong>Freeze single layer:</strong> Spread on parchment-lined baking sheet, freeze 2-3 hours.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <span><strong>Store & enjoy:</strong> Transfer to freezer bags. Grab whenever you need a sweet fix!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cranberry Chili Candy Cubes -->
+        <div class="recipe-card">
+            <h2 class="recipe-title">Cranberry Chili "Candy" Cubes</h2>
+            <div class="recipe-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Calories</div>
+                    <div class="meta-value">~25 per cube</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Makes</div>
+                    <div class="meta-value">12-15 cubes</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Time</div>
+                    <div class="meta-value">5 min + freeze</div>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="ingredients">
+                    <h3 class="section-title">Ingredients</h3>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🔴</div>
+                        <span>1/2 cup cranberry sauce</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🌶️</div>
+                        <span>1/2 tsp chili powder <span class="transformation-badge">Your signature!</span></span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🍋</div>
+                        <span>1 tsp lime juice (optional)</span>
+                    </div>
+                    <div class="ingredient-item">
+                        <div class="ingredient-icon">🧊</div>
+                        <span>Ice cube trays</span>
+                    </div>
+                </div>
+                
+                <div class="tips">
+                    <h3 class="section-title">Perfect For</h3>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">🍭</div>
+                        <span><strong>Sweet cravings:</strong> Satisfies dessert urges with minimal calories</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">🌶️</div>
+                        <span><strong>Spicy-sweet mood:</strong> Unique flavor combination hits all taste buds</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="ingredient-icon">🏃‍♀️</div>
+                        <span><strong>Pre-workout:</strong> Natural energy boost without sugar crash</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3 class="section-title">Instructions</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <span><strong>Mix ingredients:</strong> In small bowl, stir cranberry sauce, chili powder, and lime juice until combined.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <span><strong>Fill trays:</strong> Spoon mixture into ice cube trays, filling each compartment about 3/4 full.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <span><strong>Freeze solid:</strong> Freeze for at least 3 hours or overnight until completely solid.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <span><strong>Pop & store:</strong> Remove from trays, store in freezer bags for up to 3 months.</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <span><strong>Enjoy:</strong> Pop one cube when you need a sweet-spicy treat!</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
