@@ -3,1023 +3,560 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECHNOMAGE RECIPE CODEX</title>
+    <title>Technomage Recipe Codex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Hack:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #181c1b;
+            --text: #fff;
+            --header-footer-bg: linear-gradient(90deg, #CCFF00 0%, #FF44CC 100%);
+            --header-footer-text: #181c1b;
+            --neon-green: #80FF00;
+            --neon-pink: #FF44CC;
+            --container-bg: #181c1b;
+            --card-bg: #222;
+            --input-bg: #222;
+            --input-text: #fff;
+            --tag-bg: #181c1b;
+            --tag-text: #CCFF00;
+            --scrollbar-track: #181c1b;
+            --scrollbar-thumb: linear-gradient(90deg, #CCFF00 0%, #FF44CC 100%);
+        }
+        body.light-mode {
+            --bg: #fff;
+            --text: #181c1b;
+            --header-footer-bg: linear-gradient(90deg, #CCFF00 0%, #FF44CC 100%);
+            --header-footer-text: #181c1b;
+            --container-bg: #fff;
+            --card-bg: #fff;
+            --input-bg: #fff;
+            --input-text: #181c1b;
+            --tag-bg: #fff;
+            --tag-text: #181c1b;
+            --scrollbar-track: #fff;
+            --scrollbar-thumb: linear-gradient(90deg, #CCFF00 0%, #FF44CC 100%);
+            --card-header: #181c1b;
+            --card-text: #181c1b;
+        }
         body {
-            font-family: 'Courier New', monospace;
-            background: radial-gradient(circle at 20% 80%, #000000 0%, #1a1a1a 40%, #000000 100%);
-            background-attachment: fixed;
+            font-family: 'Hack', monospace;
+            font-weight: 300;
+            background: var(--bg);
+            color: var(--text);
             margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-            color: #FFFFFF;
-            position: relative;
+            padding: 0;
+            transition: background 0.3s, color 0.3s;
+            --card-header: #CCFF00;
+            --card-text: #80FF00;
         }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(128, 255, 0, 0.05) 0%, rgba(255, 68, 204, 0.05) 50%, rgba(204, 255, 0, 0.05) 100%);
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .recipe-card {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(26, 26, 26, 0.95) 100%);
-            border: 2px solid #80FF00;
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px 0;
-            box-shadow: 0 0 30px rgba(128, 255, 0, 0.3), inset 0 0 20px rgba(255, 68, 204, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .recipe-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(128, 255, 0, 0.03) 0%, rgba(255, 68, 204, 0.03) 100%);
-            pointer-events: none;
-        }
-        
-        .recipe-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 40px rgba(128, 255, 0, 0.5), 0 0 20px rgba(255, 68, 204, 0.3);
-            border-color: #FF44CC;
-        }
-        
-        .recipe-title {
-            font-size: 2.5rem;
-            color: #80FF00;
+        .header, .footer {
+            width: 100vw;
+            background: var(--header-footer-bg);
+            color: var(--header-footer-text);
+            font-family: 'Orbitron', 'Hack', monospace;
+            font-weight: 900;
             text-align: center;
-            margin-bottom: 30px;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(128, 255, 0, 0.5);
+            padding: 0.7em 0 0.5em 0;
+            letter-spacing: 2px;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            box-shadow: 0 2px 12px #FF44CC33;
+        }
+        .footer {
+            font-size: 1rem;
+            padding: 0.5em 0 0.7em 0;
+            margin-top: 2em;
+            background: linear-gradient(90deg, #FF44CC 0%, #CCFF00 100%);
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto 0 auto;
+            padding: 0 16px;
+            background: var(--container-bg);
+            transition: background 0.3s;
+        }
+        .gradient-header, .header {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 2px;
+            background: linear-gradient(90deg, #CCFF00 0%, #FF44CC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-fill-color: transparent;
         }
-        
-        .recipe-meta {
-            display: flex;
-            justify-content: space-around;
-            background: linear-gradient(135deg, rgba(128, 255, 0, 0.1) 0%, rgba(255, 68, 204, 0.1) 100%);
-            border: 1px solid rgba(128, 255, 0, 0.3);
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
+        .header {
+            font-size: 2.5rem;
+            margin-bottom: 0.5em;
+            box-shadow: 0 2px 12px #FF44CC33;
+            padding: 0.7em 0 0.5em 0;
         }
-        
-        .meta-item {
-            text-align: center;
-            margin: 5px;
-        }
-        
-        .meta-label {
-            font-weight: bold;
-            color: #CCFF00;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .meta-value {
-            color: #FFFFFF;
-            font-size: 1.1rem;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-        }
-        
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .ingredients, .storage, .tips {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(26, 26, 26, 0.7) 100%);
-            border: 1px solid rgba(255, 68, 204, 0.3);
-            padding: 20px;
-            border-radius: 15px;
-        }
-        
-        .section-title {
-            font-size: 1.8rem;
-            color: #FF44CC;
-            margin-bottom: 15px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(255, 68, 204, 0.5);
-        }
-        
-        .ingredient-item, .storage-item, .tip-item {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-            padding: 8px;
-            background: linear-gradient(135deg, rgba(128, 255, 0, 0.05) 0%, rgba(255, 68, 204, 0.05) 100%);
-            border: 1px solid rgba(128, 255, 0, 0.2);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .ingredient-item:hover, .storage-item:hover, .tip-item:hover {
-            border-color: #80FF00;
-            box-shadow: 0 0 15px rgba(128, 255, 0, 0.2);
-        }
-        
-        .ingredient-icon {
-            width: 30px;
-            height: 30px;
-            margin-right: 15px;
-            background: linear-gradient(135deg, #80FF00 0%, #CCFF00 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 0 10px rgba(128, 255, 0, 0.3);
-        }
-        
-        .instructions {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(26, 26, 26, 0.8) 100%);
-            padding: 20px;
-            border-radius: 15px;
-            border: 2px solid rgba(204, 255, 0, 0.5);
-        }
-        
-        .step {
-            display: flex;
-            align-items: flex-start;
-            margin: 15px 0;
-            padding: 15px;
-            background: linear-gradient(135deg, rgba(128, 255, 0, 0.05) 0%, rgba(255, 68, 204, 0.05) 100%);
-            border-radius: 10px;
-            border-left: 4px solid #80FF00;
-            transition: all 0.3s ease;
-        }
-        
-        .step:hover {
-            border-left-color: #FF44CC;
-            box-shadow: 0 0 15px rgba(255, 68, 204, 0.2);
-        }
-        
-        .step-number {
-            background: linear-gradient(135deg, #80FF00 0%, #CCFF00 100%);
-            color: #000000;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 15px;
-            flex-shrink: 0;
-            box-shadow: 0 0 10px rgba(128, 255, 0, 0.5);
-        }
-        
-        .transformation-badge {
-            background: linear-gradient(45deg, #FF44CC 0%, #80FF00 100%);
-            color: #000000;
-            padding: 5px 12px;
+        .search-container {
+            background: var(--container-bg);
+            border: 2px solid #80FF00;
             border-radius: 20px;
-            font-size: 0.8rem;
+            box-shadow: 0 0 16px #80FF0033;
+            padding: 2em 1.5em 1.5em 1.5em;
+            margin-bottom: 3em;
+            max-width: 850px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .search-bar {
+            width: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .search-bar input {
+            width: 100%;
+            height: 28px;
+            padding: 4px 10px;
+            border-radius: 10px;
+            border: 2px solid #80FF00;
+            font-family: 'Hack', monospace;
+            font-size: 0.95em;
+            background: var(--input-bg);
+            color: var(--input-text);
+            margin-bottom: 0;
+            max-width: 700px;
+        }
+        .sort-dropdown {
+            height: 40px;
+            padding: 4px 10px;
+            font-size: 0.95em;
+            margin-left: 8px;
+            width: auto;
+            min-width: 70px;
+            background: var(--input-bg);
+            color: var(--tag-text);
+            border: 2px solid #FF44CC;
+            border-radius: 10px;
+            font-family: 'Hack', monospace;
+            cursor: pointer;
+        }
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 1.5em;
+            margin-top: 1.5em;
+        }
+        .tag {
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            border: 2px solid #80FF00;
+            font-family: 'Hack', monospace;
             font-weight: bold;
-            margin-left: 10px;
+            border-radius: 16px;
+            padding: 4px 14px;
+            font-size: 1em;
+            cursor: pointer;
+            outline: none;
+            transition: background 0.2s, color 0.2s, border 0.2s;
+            box-shadow: 0 0 6px #80FF0033;
+        }
+        .tag.selected {
+            background: var(--neon-green);
+            color: var(--header-footer-text);
+            border: 2px solid #FF44CC;
+            box-shadow: 0 0 10px #FF44CC55;
+        }
+        .recipe-card {
+            background: var(--card-bg);
+            color: var(--card-text);
+            border: 2px solid #80FF00;
+            border-radius: 18px;
+            margin: 1.5em .5em;
+            box-shadow: 0 0 20px #80FF0033;
+            padding: 1.5em;
+            transition: box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .recipe-card.expanded {
+            box-shadow: 0 0 40px #FF44CC55;
+        }
+        .recipe-title {
+            font-family: 'Orbitron', 'Hack', monospace;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--card-header);
+            margin: 0 0 0.5em 0;
+        }
+        .recipe-meta {
+            color: var(--card-text);
+            font-size: 1em;
+            margin-bottom: 0.5em;
+        }
+        .recipe-preview {
+            color: var(--card-text);
+            font-size: 1em;
+            margin-bottom: 1em;
+        }
+        .recipe-tags {
+            margin-bottom: 1em;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .recipe-tag {
+            background: linear-gradient(90deg, #FF44CC 0%, #CCFF00 100%);
+            color: #181c1b;
+            font-family: 'Hack', monospace;
+            font-size: 0.95em;
+            border-radius: 12px;
+            padding: 5px 10px;
+            margin-right: 4px;
+            margin-bottom: 2px;
+            display: inline-block;
+        }
+        .action-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0.5em;
+            position: relative;
+        }
+        .action-btns button, .share-row a, .share-row button {
+            background: #181c1b;
+            color: #80FF00;
+            border: none;
+            border-radius: 20px;
+            padding: 6px 18px;
+            font-family: 'Hack', monospace;
+            font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 0 10px rgba(255, 68, 204, 0.3);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            box-shadow: 0 0 8px #FF44CC55;
         }
-        
-        @media (max-width: 768px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .recipe-meta {
-                flex-direction: column;
-            }
-            
-            .recipe-title {
-                font-size: 2rem;
-            }
+        .action-btns button:hover, .action-btns button:focus, .share-row a:hover, .share-row button:hover {
+            background: #FF44CC;
+            color: #181c1b;
+            outline: none;
+        }
+        .share-row {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+        .expand-indicator {
+            color: var(--neon-pink);
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 1.2em;
+            text-align: center;
+            display: block;
+        }
+        .card-scroll-container {
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 8px;
+            margin-top: 3em;
+            margin-bottom: 3em;
+            border-radius: 18px;
+            box-shadow: 0 0 24px #80FF0033;
+            scrollbar-color: var(--neon-green) var(--scrollbar-track);
+        }
+        .card-scroll-container::-webkit-scrollbar {
+            width: 10px;
+        }
+        .card-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 8px;
+        }
+        .card-scroll-container::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+        }
+        /* Toggle button */
+        .mode-toggle {
+            position: absolute;
+            top: 18px;
+            right: 32px;
+            background: var(--input-bg);
+            color: var(--neon-pink);
+            border: 2px solid var(--neon-pink);
+            border-radius: 16px;
+            font-family: 'Hack', monospace;
+            font-size: 1em;
+            font-weight: bold;
+            padding: 6px 18px;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.3s, color 0.3s, border 0.3s;
+        }
+        .mode-toggle:hover, .mode-toggle:focus {
+            background: var(--neon-pink);
+            color: var(--input-bg);
+            outline: none;
         }
     </style>
 </head>
 <body>
+    <button class="mode-toggle" id="modeToggle" aria-label="Toggle light/dark mode">Light Mode</button>
+    <div class="header">Technomage Recipe Codex</div>
     <div class="container">
-        <!-- Header -->
-        <header style="text-align: center; margin-bottom: 60px; padding: 40px 20px; background: linear-gradient(135deg, rgba(128, 255, 0, 0.1) 0%, rgba(255, 68, 204, 0.1) 50%, rgba(204, 255, 0, 0.1) 100%); border-radius: 20px; border: 1px solid rgba(128, 255, 0, 0.3);">
-            <h1 style="color: #80FF00; font-size: 3rem; margin: 0; text-shadow: 0 0 30px rgba(128, 255, 0, 0.8); text-transform: uppercase; letter-spacing: 3px; font-weight: bold;">⚡ TECHNOMAGE ⚡</h1>
-            <h2 style="color: #FF44CC; font-size: 2rem; margin: 10px 0; text-shadow: 0 0 20px rgba(255, 68, 204, 0.7); text-transform: uppercase; letter-spacing: 2px;">RECIPE CODEX</h2>
-            <p style="color: #FFFFFF; font-size: 1.1rem; margin: 20px auto; max-width: 600px; line-height: 1.6; opacity: 0.9;">Recipes from the Technomage Codex. Cyberpunk-inspired nutrition for transformation and optimization.</p>
-            <p style="color: #CCFF00; font-size: 1rem; margin: 15px 0 20px 0; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Ghost-in-the-shell aesthetic meets transformation nutrition</p>
-            <div style="margin-top: 20px;">
-                <a href="https://aequalia.co" target="_blank" style="color: #80FF00; text-decoration: none; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; border: 1px solid #80FF00; padding: 10px 20px; border-radius: 25px; transition: all 0.3s ease; display: inline-block;">Visit Aequalia.co</a>
+        <div class="search-container">
+            <div class="search-bar">
+                <input id="searchInput" type="text" placeholder="Search recipes or tags..." aria-label="Search recipes or tags" />
+                <select id="sortDropdown" class="sort-dropdown" aria-label="Sort recipes">
+                    <option value="az">A-Z</option>
+                    <option value="za">Z-A</option>
+                </select>
             </div>
-        </header>
-        
-        <!-- Oat-Based Green Roti -->
-        <div class="recipe-card">
-            <h2 class="recipe-title">Oat-Based Green Roti</h2>
-            <div class="recipe-meta">
-                <div class="meta-item">
-                    <div class="meta-label">Calories</div>
-                    <div class="meta-value">~180 per roti</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Makes</div>
-                    <div class="meta-value">4-6 rotis</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Time</div>
-                    <div class="meta-value">25 minutes</div>
-                </div>
-            </div>
-            
-            <div class="content-grid">
-                <div class="ingredients">
-                    <h3 class="section-title">Ingredients</h3>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🥬</div>
-                        <span>1 cup super greens or spinach</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🌿</div>
-                        <span>1/4 cup fresh cilantro</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🧄</div>
-                        <span>1 clove garlic</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🥣</div>
-                        <span>3/4 cup rolled oats</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">💧</div>
-                        <span>1/4 - 1/2 cup water</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🌶️</div>
-                        <span>1/2 tsp cumin <span class="transformation-badge">Anti-inflammatory</span></span>
-                    </div>
-                </div>
-                
-                <div class="storage">
-                    <h3 class="section-title">Storage</h3>
-                    <div class="storage-item">
-                        <div class="ingredient-icon">❄️</div>
-                        <span><strong>Fridge:</strong> 3-4 days in parchment, reheat in pan</span>
-                    </div>
-                    <div class="storage-item">
-                        <div class="ingredient-icon">🧊</div>
-                        <span><strong>Freezer:</strong> Up to 1 month</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="instructions">
-                <h3 class="section-title">Instructions</h3>
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <span><strong>Blend greens:</strong> Add spinach, cilantro, garlic, and 1/4 cup water to blender. Blend until smooth green paste forms.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <span><strong>Grind oats:</strong> In food processor, pulse oats until they form fine flour consistency.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <span><strong>Make dough:</strong> Mix oat flour, green paste, and cumin. Add water gradually until soft, pliable dough forms.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <span><strong>Rest:</strong> Let dough rest 10 minutes covered with damp cloth.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <span><strong>Roll & cook:</strong> Divide into 4-6 balls. Roll thin, cook in hot pan 1-2 minutes per side until spotted.</span>
-                </div>
-            </div>
+            <div id="tagList" class="tag-list"></div>
         </div>
-
-        <!-- Creamy Chicken Soup -->
-        <div class="recipe-card">
-            <h2 class="recipe-title">Creamy Chicken Soup</h2>
-            <div class="recipe-meta">
-                <div class="meta-item">
-                    <div class="meta-label">Calories</div>
-                    <div class="meta-value">~250 per cup</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Makes</div>
-                    <div class="meta-value">3 cups (3 servings)</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Time</div>
-                    <div class="meta-value">20 minutes</div>
-                </div>
-            </div>
-            
-            <div class="content-grid">
-                <div class="ingredients">
-                    <h3 class="section-title">Ingredients</h3>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🫒</div>
-                        <span>1 tbsp olive oil</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🧅</div>
-                        <span>1/2 large onion, diced</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🥕</div>
-                        <span>1 carrot, diced</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🥬</div>
-                        <span>1 celery stalk, diced</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🧄</div>
-                        <span>2 cloves garlic, minced</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍲</div>
-                        <span>3 cups chicken broth</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍗</div>
-                        <span>1 cup rotisserie chicken, shredded</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🥛</div>
-                        <span>1/2 cup Fairlife milk <span class="transformation-badge">Lighter</span></span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🧈</div>
-                        <span>1 tbsp light cream cheese</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🌶️</div>
-                        <span>1/2 tsp turmeric <span class="transformation-badge">Anti-inflammatory</span></span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🥬</div>
-                        <span>1 cup fresh spinach <span class="transformation-badge">Nutrient boost</span></span>
-                    </div>
-                </div>
-                
-                <div class="tips">
-                    <h3 class="section-title">Tips & Storage</h3>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">❄️</div>
-                        <span><strong>Freezes perfectly!</strong> Portion in mason jars, leave 1" headspace</span>
-                    </div>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">🔥</div>
-                        <span><strong>Reheat tip:</strong> Microwave from frozen or thaw overnight</span>
-                    </div>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">🥄</div>
-                        <span><strong>Beginner tip:</strong> Don't let garlic burn - just 30 seconds!</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="instructions">
-                <h3 class="section-title">Instructions</h3>
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <span><strong>Heat oil:</strong> In large pot, heat olive oil over medium heat for 1 minute.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <span><strong>Cook vegetables:</strong> Add onion, carrots, celery. Cook 5-7 minutes until onion looks clear.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <span><strong>Add garlic:</strong> Add minced garlic, cook 30 seconds until fragrant (don't burn!).</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <span><strong>Add broth & chicken:</strong> Pour in broth, bring to boil. Add chicken and seasonings.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <span><strong>Make creamy:</strong> Whisk milk with cream cheese, slowly stir into soup.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">6</div>
-                    <span><strong>Add greens:</strong> Stir in spinach, cook 2 minutes until wilted. Taste and adjust seasoning.</span>
-                </div>
-            </div>
+        <div class="card-scroll-container" id="cardScrollContainer">
+            <div id="recipeContainer"></div>
         </div>
-
-        <!-- White Chicken Chili -->
-        <div class="recipe-card">
-            <h2 class="recipe-title">White Chicken Chili</h2>
-            <div class="recipe-meta">
-                <div class="meta-item">
-                    <div class="meta-label">Calories</div>
-                    <div class="meta-value">~290 per cup</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Makes</div>
-                    <div class="meta-value">3 cups (3 servings)</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Time</div>
-                    <div class="meta-value">20 minutes</div>
-                </div>
-            </div>
-            
-            <div class="content-grid">
-                <div class="ingredients">
-                    <h3 class="section-title">Ingredients</h3>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🫒</div>
-                        <span>1 tbsp olive oil</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🧅</div>
-                        <span>1/2 large onion, diced</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🧄</div>
-                        <span>1 clove garlic, minced</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🌶️</div>
-                        <span>1/2 can (2 oz) diced green chiles</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🫘</div>
-                        <span>1 can (15 oz) white beans, drained</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍲</div>
-                        <span>1.5 cups chicken broth</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍗</div>
-                        <span>1 cup rotisserie chicken, shredded</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🧈</div>
-                        <span>1/2 tbsp light cream cheese <span class="transformation-badge">Lighter</span></span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🥛</div>
-                        <span>1/4 cup Fairlife milk <span class="transformation-badge">Healthier</span></span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🥄</div>
-                        <span>Greek yogurt for serving <span class="transformation-badge">Protein boost</span></span>
-                    </div>
-                </div>
-                
-                <div class="tips">
-                    <h3 class="section-title">Spices & Storage</h3>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">🌿</div>
-                        <span><strong>Spices:</strong> 1/2 tsp cumin, 1/2 tsp oregano, 1/4 tsp chili powder</span>
-                    </div>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">❄️</div>
-                        <span><strong>Freezes perfectly!</strong> Cool completely before freezing</span>
-                    </div>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">🥄</div>
-                        <span><strong>Serving tip:</strong> Add fresh Greek yogurt when reheating</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="instructions">
-                <h3 class="section-title">Instructions</h3>
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <span><strong>Heat & sauté:</strong> Heat oil, cook onion 5 minutes until clear and soft.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <span><strong>Add aromatics:</strong> Add garlic (30 seconds), then chiles and spices (1 minute).</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <span><strong>Add beans & broth:</strong> Add white beans and broth, bring to boil.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <span><strong>Simmer with chicken:</strong> Add chicken, reduce heat, simmer 15 minutes.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <span><strong>Make creamy:</strong> Whisk cream cheese with milk, stir into chili.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">6</div>
-                    <span><strong>Serve:</strong> Season to taste, top with Greek yogurt instead of sour cream!</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Cranberry Salsa -->
-        <div class="recipe-card">
-            <h2 class="recipe-title">Cranberry Salsa (Your Signature!)</h2>
-            <div class="recipe-meta">
-                <div class="meta-item">
-                    <div class="meta-label">Calories</div>
-                    <div class="meta-value">~35 per 1/4 cup</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Makes</div>
-                    <div class="meta-value">2 cups (8 servings)</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Time</div>
-                    <div class="meta-value">15 minutes</div>
-                </div>
-            </div>
-            
-            <div class="content-grid">
-                <div class="ingredients">
-                    <h3 class="section-title">Ingredients</h3>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🔴</div>
-                        <span>1 cup fresh cranberries</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🫑</div>
-                        <span>1/2 red bell pepper, finely diced</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🧅</div>
-                        <span>1/4 red onion, finely diced</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🌶️</div>
-                        <span>1/2 jalapeño, seeded & minced (optional)</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🌿</div>
-                        <span>2 tbsp fresh cilantro, chopped</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍋</div>
-                        <span>Juice of 1/2 lime</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍯</div>
-                        <span>1 tbsp honey or maple syrup</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🌶️</div>
-                        <span>1/4 tsp chili powder <span class="transformation-badge">Your signature!</span></span>
-                    </div>
-                </div>
-                
-                <div class="tips">
-                    <h3 class="section-title">Uses & Storage</h3>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">🍗</div>
-                        <span><strong>Perfect with:</strong> Rotisserie chicken, crackers, or as yogurt mix-in</span>
-                    </div>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">❄️</div>
-                        <span><strong>Storage:</strong> Keeps 1 week in fridge - flavors get better!</span>
-                    </div>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">🧊</div>
-                        <span><strong>Freeze tip:</strong> Freeze in ice cube trays for portion control</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="instructions">
-                <h3 class="section-title">Instructions</h3>
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <span><strong>Prep cranberries:</strong> Roughly chop fresh cranberries (or pulse in food processor 3-4 times).</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <span><strong>Dice vegetables:</strong> Finely dice bell pepper and onion into small, uniform pieces.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <span><strong>Prep jalapeño:</strong> Cut in half, remove seeds with spoon, mince finely (wash hands after!).</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <span><strong>Make dressing:</strong> In small bowl, whisk lime juice, honey, chili powder, and salt.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <span><strong>Combine:</strong> Mix all ingredients, pour dressing over, stir well.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">6</div>
-                    <span><strong>Let flavors meld:</strong> Rest 15 minutes before serving for best flavor!</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Harlow House Salad -->
-        <div class="recipe-card">
-            <h2 class="recipe-title">Harlow House Salad</h2>
-            <div class="recipe-meta">
-                <div class="meta-item">
-                    <div class="meta-label">Calories</div>
-                    <div class="meta-value">~320 per serving</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Serves</div>
-                    <div class="meta-value">1 generous portion</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Time</div>
-                    <div class="meta-value">15 minutes</div>
-                </div>
-            </div>
-            
-            <div class="content-grid">
-                <div class="ingredients">
-                    <h3 class="section-title">Salad Ingredients</h3>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🥗</div>
-                        <span>4 cups mixed organic salad greens</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🔴</div>
-                        <span>1 large roasted beet, spiralized</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🥕</div>
-                        <span>1 large carrot, spiralized</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🌻</div>
-                        <span>2 tbsp sunflower seeds</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🌱</div>
-                        <span>1 tbsp hemp seeds</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍗</div>
-                        <span>3 oz rotisserie chicken <span class="transformation-badge">Protein boost</span></span>
-                    </div>
-                </div>
-                
-                <div class="ingredients">
-                    <h3 class="section-title">Lemon Ginger Dressing</h3>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍋</div>
-                        <span>3 tbsp fresh lemon juice</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🫚</div>
-                        <span>1 tbsp fresh ginger, grated <span class="transformation-badge">Anti-inflammatory</span></span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🫒</div>
-                        <span>2 tbsp olive oil</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍯</div>
-                        <span>1 tsp maple syrup or agave</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🧂</div>
-                        <span>1/4 tsp sea salt + pinch black pepper</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="instructions">
-                <h3 class="section-title">Instructions</h3>
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <span><strong>Prep beets:</strong> Roast whole beets at 400°F for 45 minutes until tender. Cool, peel, spiralize.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <span><strong>Make dressing:</strong> Whisk all dressing ingredients together in small bowl.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <span><strong>Spiralize carrot:</strong> Use spiralizer or vegetable peeler to create ribbon strips.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <span><strong>Arrange beautifully:</strong> Place greens in bowl, arrange beet and carrot spirals in alternating rings.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <span><strong>Finish & serve:</strong> Sprinkle seeds in center, add chicken, drizzle dressing just before eating.</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Super Greens Lemonade -->
-        <div class="recipe-card">
-            <h2 class="recipe-title">Super Greens Lemonade</h2>
-            <div class="recipe-meta">
-                <div class="meta-item">
-                    <div class="meta-label">Calories</div>
-                    <div class="meta-value">~45 per 16oz</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Makes</div>
-                    <div class="meta-value">1 large serving</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Time</div>
-                    <div class="meta-value">5 minutes</div>
-                </div>
-            </div>
-            
-            <div class="content-grid">
-                <div class="ingredients">
-                    <h3 class="section-title">Ingredients</h3>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🥬</div>
-                        <span>1 cup fresh spinach</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🥬</div>
-                        <span>1/2 cup kale, stems removed</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🥒</div>
-                        <span>1/2 cucumber, peeled</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍋</div>
-                        <span>Juice of 2 lemons</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍯</div>
-                        <span>1-2 tbsp raw honey (or stevia)</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🌱</div>
-                        <span>1/4 tsp chlorella powder <span class="transformation-badge">Detox boost</span></span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">💧</div>
-                        <span>1 cup cold water + ice</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">✨</div>
-                        <span>Sparkling water (optional for fizz)</span>
-                    </div>
-                </div>
-                
-                <div class="tips">
-                    <h3 class="section-title">Tips & Uses</h3>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">🧊</div>
-                        <span><strong>Freeze hack:</strong> Freeze in ice cube trays for instant green boost</span>
-                    </div>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">🥤</div>
-                        <span><strong>Kombucha mix:</strong> Add to your favorite kombucha for probiotic power</span>
-                    </div>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">💪</div>
-                        <span><strong>Post-workout:</strong> Perfect for after Chloe Ting workouts</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="instructions">
-                <h3 class="section-title">Instructions</h3>
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <span><strong>Blend greens:</strong> Add spinach, kale, cucumber, and water to blender. Blend until smooth.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <span><strong>Strain (optional):</strong> Pour through fine mesh strainer for ultra-smooth texture.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <span><strong>Add flavor:</strong> Stir in lemon juice, honey, and chlorella powder until dissolved.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <span><strong>Serve fresh:</strong> Pour over ice, top with sparkling water for fizzy version.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <span><strong>Storage:</strong> Keeps 2 days in fridge - stir before drinking!</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Frozen Grape Snacks -->
-        <div class="recipe-card">
-            <h2 class="recipe-title">Frozen Fruit Snack Collection</h2>
-            <div class="recipe-meta">
-                <div class="meta-item">
-                    <div class="meta-label">Calories</div>
-                    <div class="meta-value">45-60 per cup</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Prep Time</div>
-                    <div class="meta-value">10 min + freeze</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Keeps</div>
-                    <div class="meta-value">1 month frozen</div>
-                </div>
-            </div>
-            
-            <div class="content-grid">
-                <div class="ingredients">
-                    <h3 class="section-title">Base Fruits</h3>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍇</div>
-                        <span>2 cups grapes (any color)</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🔴</div>
-                        <span>1 cup fresh cranberries</span>
-                    </div>
-                </div>
-                
-                <div class="ingredients">
-                    <h3 class="section-title">Coating Options</h3>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🌶️</div>
-                        <span><strong>Mexican Lime Chili:</strong> Lime juice + chili powder</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍋</div>
-                        <span><strong>Lemon Drop:</strong> Lemon juice + stevia + cinnamon</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍊</div>
-                        <span><strong>Orange Zest:</strong> Orange zest + stevia</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🫚</div>
-                        <span><strong>Ginger Lime:</strong> Ginger powder + lime juice</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍯</div>
-                        <span><strong>Vanilla Dreams:</strong> Vanilla extract + monk fruit</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="instructions">
-                <h3 class="section-title">Instructions</h3>
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <span><strong>Prep fruit:</strong> Wash and dry grapes and cranberries completely (wet fruit won't coat well).</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <span><strong>Choose coating:</strong> Pick your mood - sweet, spicy, or tart. Mix coating ingredients in small bowl.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <span><strong>Coat fruit:</strong> Toss fruit with coating mixture until evenly covered.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <span><strong>Freeze single layer:</strong> Spread on parchment-lined baking sheet, freeze 2-3 hours.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <span><strong>Store & enjoy:</strong> Transfer to freezer bags. Grab whenever you need a sweet fix!</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Cranberry Chili Candy Cubes -->
-        <div class="recipe-card">
-            <h2 class="recipe-title">Cranberry Chili "Candy" Cubes</h2>
-            <div class="recipe-meta">
-                <div class="meta-item">
-                    <div class="meta-label">Calories</div>
-                    <div class="meta-value">~25 per cube</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Makes</div>
-                    <div class="meta-value">12-15 cubes</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Time</div>
-                    <div class="meta-value">5 min + freeze</div>
-                </div>
-            </div>
-            
-            <div class="content-grid">
-                <div class="ingredients">
-                    <h3 class="section-title">Ingredients</h3>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🔴</div>
-                        <span>1/2 cup cranberry sauce</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🌶️</div>
-                        <span>1/2 tsp chili powder <span class="transformation-badge">Your signature!</span></span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🍋</div>
-                        <span>1 tsp lime juice (optional)</span>
-                    </div>
-                    <div class="ingredient-item">
-                        <div class="ingredient-icon">🧊</div>
-                        <span>Ice cube trays</span>
-                    </div>
-                </div>
-                
-                <div class="tips">
-                    <h3 class="section-title">Perfect For</h3>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">🍭</div>
-                        <span><strong>Sweet cravings:</strong> Satisfies dessert urges with minimal calories</span>
-                    </div>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">🌶️</div>
-                        <span><strong>Spicy-sweet mood:</strong> Unique flavor combination hits all taste buds</span>
-                    </div>
-                    <div class="tip-item">
-                        <div class="ingredient-icon">🏃‍♀️</div>
-                        <span><strong>Pre-workout:</strong> Natural energy boost without sugar crash</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="instructions">
-                <h3 class="section-title">Instructions</h3>
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <span><strong>Mix ingredients:</strong> In small bowl, stir cranberry sauce, chili powder, and lime juice until combined.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <span><strong>Fill trays:</strong> Spoon mixture into ice cube trays, filling each compartment about 3/4 full.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <span><strong>Freeze solid:</strong> Freeze for at least 3 hours or overnight until completely solid.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <span><strong>Pop & store:</strong> Remove from trays, store in freezer bags for up to 3 months.</span>
-                </div>
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <span><strong>Enjoy:</strong> Pop one cube when you need a sweet-spicy treat!</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <footer style="text-align: center; margin-top: 80px; padding: 40px 20px; background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%); border-radius: 20px; border: 2px solid rgba(128, 255, 0, 0.3); box-shadow: 0 0 30px rgba(128, 255, 0, 0.2);">
-            <div style="margin-bottom: 30px;">
-                <h3 style="color: #80FF00; font-size: 2rem; margin: 0 0 10px 0; text-shadow: 0 0 15px rgba(128, 255, 0, 0.6); text-transform: uppercase; letter-spacing: 2px;">TECHNOMAGE RECIPE CODEX</h3>
-                <p style="color: #FF44CC; font-size: 1.1rem; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Created by Aequus Nox</p>
-            </div>
-            
-            <div style="margin-bottom: 25px;">
-                <a href="https://aequalia.co" target="_blank" style="color: #CCFF00; text-decoration: none; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 1px; border: 2px solid #CCFF00; padding: 12px 25px; border-radius: 30px; transition: all 0.3s ease; display: inline-block; box-shadow: 0 0 15px rgba(204, 255, 0, 0.3);">Visit Aequalia.co</a>
-            </div>
-            
-            <div style="border-top: 1px solid rgba(128, 255, 0, 0.3); padding-top: 20px; margin-top: 20px;">
-                <div style="margin-bottom: 15px; padding: 10px 20px; background: linear-gradient(135deg, rgba(128, 255, 0, 0.1) 0%, rgba(255, 68, 204, 0.1) 100%); border-radius: 15px; border: 1px solid rgba(128, 255, 0, 0.2);">
-                    <p style="color: #80FF00; font-size: 1rem; margin: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; text-shadow: 0 0 10px rgba(128, 255, 0, 0.5);">⚡ BUILT & DEPLOYED IN 20 MINUTES ⚡</p>
-                    <p style="color: #CCFF00; font-size: 0.9rem; margin: 5px 0 0 0; opacity: 0.8;">From concept to live cyberpunk recipe codex using AI-powered development</p>
-                </div>
-                <p style="color: #FFFFFF; font-size: 0.9rem; margin: 0; opacity: 0.7;">© 2025 Aequus Nox | All rights reserved</p>
-                <p style="color: #80FF00; font-size: 0.8rem; margin: 5px 0 0 0; opacity: 0.6;">Ghost-in-the-shell aesthetic meets transformation nutrition</p>
-            </div>
-        </footer>
-
     </div>
+    <div class="footer">
+        &copy; <span id="year"></span> <a href="https://aequalia.co" target="_blank" style="color:#FF44CC;text-decoration:none;font-weight:bold;">aequalia.co</a>
+    </div>
+    <script>
+    let allRecipes = [];
+    let selectedTag = null;
+    // Load recipes from JSON
+    fetch('recipes.json')
+      .then(r => r.json())
+      .then(data => {
+        allRecipes = data.recipes;
+        renderTagList();
+        renderRecipes();
+      });
+    function getAllTags() {
+      const tags = new Set();
+      allRecipes.forEach(r => r.tags && r.tags.forEach(t => tags.add(t)));
+      return Array.from(tags).sort();
+    }
+    function renderTagList() {
+      const tagList = document.getElementById('tagList');
+      tagList.innerHTML = '';
+      getAllTags().forEach(tag => {
+        const btn = document.createElement('button');
+        btn.className = 'tag' + (selectedTag === tag ? ' selected' : '');
+        btn.textContent = tag;
+        btn.onclick = () => {
+          selectedTag = selectedTag === tag ? null : tag;
+          renderTagList();
+          renderRecipes();
+        };
+        tagList.appendChild(btn);
+      });
+    }
+    function createRecipeContent(recipe) {
+      let html = '';
+      if (recipe.ingredients) {
+        html += `<div><strong>Ingredients:</strong><ul>${recipe.ingredients.map(ing => `<li>${ing.icon ? ing.icon + ' ' : ''}${ing.item}${ing.badge ? ' <span style=\'color:#FF44CC;font-size:0.9em;\'>' + ing.badge + '</span>' : ''}</li>`).join('')}</ul></div>`;
+      }
+      if (recipe.dressing) {
+        html += `<div><strong>Dressing:</strong><ul>${recipe.dressing.map(ing => `<li>${ing.icon ? ing.icon + ' ' : ''}${ing.item}${ing.badge ? ' <span style=\'color:#FF44CC;font-size:0.9em;\'>' + ing.badge + '</span>' : ''}</li>`).join('')}</ul></div>`;
+      }
+      if (recipe.coatings) {
+        html += `<div><strong>Coatings:</strong><ul>${recipe.coatings.map(ing => `<li>${ing.icon ? ing.icon + ' ' : ''}${ing.item}</li>`).join('')}</ul></div>`;
+      }
+      if (recipe.storage) {
+        html += `<div><strong>Storage:</strong><ul>${recipe.storage.map(s => `<li>${s.icon ? s.icon + ' ' : ''}${s.item}</li>`).join('')}</ul></div>`;
+      }
+      if (recipe.tips) {
+        html += `<div><strong>Tips:</strong><ul>${recipe.tips.map(t => `<li>${t.icon ? t.icon + ' ' : ''}${t.item}</li>`).join('')}</ul></div>`;
+      }
+      html += `<div><strong>Instructions:</strong><ol>${recipe.instructions.map(step => `<li>${step.instruction}</li>`).join('')}</ol></div>`;
+      return html;
+    }
+    function renderRecipes() {
+      const container = document.getElementById('recipeContainer');
+      container.innerHTML = '';
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      let recipes = allRecipes;
+      if (selectedTag) {
+        recipes = recipes.filter(r => r.tags && r.tags.includes(selectedTag));
+      }
+      if (search) {
+        recipes = recipes.filter(r =>
+          r.title.toLowerCase().includes(search) ||
+          (r.tags && r.tags.some(t => t.toLowerCase().includes(search)))
+        );
+      }
+      const sort = document.getElementById('sortDropdown').value;
+      recipes.sort((a, b) => sort === 'az' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title));
+      recipes.forEach((recipe, idx) => {
+        const card = document.createElement('div');
+        card.className = 'recipe-card';
+        card.setAttribute('data-recipe-idx', idx);
+        card.innerHTML = `
+          <h2 class="recipe-title">${recipe.title}</h2>
+          <div class="recipe-meta">${recipe.calories || ''} ${recipe.makes ? ' | ' + recipe.makes : ''} ${recipe.time ? ' | ' + recipe.time : ''}</div>
+          <div class="recipe-tags">${(recipe.tags || []).map(tag => `<span class='recipe-tag'>${tag}</span>`).join(' ')}</div>
+          <div class="recipe-preview">${recipe.ingredients && recipe.ingredients.slice(0, 3).map(ing => (ing.icon ? ing.icon + ' ' : '') + ing.item).join(', ')}...</div>
+          <div class="action-btns">
+            <button class="share-btn" data-idx="${idx}">Share</button>
+            <button class="print-btn" data-idx="${idx}">Print</button>
+          </div>
+          <div class="share-row" id="shareRow-${idx}" style="display:none;">
+            <a href="#" class="share-twitter" data-idx="${idx}" title="Share on Twitter/X">Twitter/X</a>
+            <a href="#" class="share-facebook" data-idx="${idx}" title="Share on Facebook">Facebook</a>
+            <a href="#" class="share-reddit" data-idx="${idx}" title="Share on Reddit">Reddit</a>
+            <button class="copy-link" data-idx="${idx}" title="Copy Link">Copy Link</button>
+            <button class="copy-text" data-idx="${idx}" title="Copy Recipe Text">Copy Text</button>
+          </div>
+          <span class="expand-indicator" tabindex="0" role="button" aria-expanded="false">Click to expand</span>
+          <div class="recipe-content" style="display:none;">
+            <button class='close-btn' aria-label='Collapse recipe' tabindex="0" style="float:right;margin-bottom:8px;background:#181c1b;color:#FF44CC;border:none;border-radius:50%;width:32px;height:32px;font-size:1.2em;cursor:pointer;">&times;</button>
+            ${createRecipeContent(recipe)}
+          </div>
+        `;
+        // Expand/collapse logic
+        const expandIndicator = card.querySelector('.expand-indicator');
+        expandIndicator.onclick = function(e) {
+          e.stopPropagation();
+          const content = card.querySelector('.recipe-content');
+          if (content.style.display === 'block') {
+            content.style.display = 'none';
+            expandIndicator.textContent = 'Click to expand';
+            expandIndicator.setAttribute('aria-expanded', 'false');
+            card.classList.remove('expanded');
+          } else {
+            // Collapse others
+            document.querySelectorAll('.recipe-card').forEach(c => {
+              c.querySelector('.recipe-content').style.display = 'none';
+              c.querySelector('.expand-indicator').textContent = 'Click to expand';
+              c.querySelector('.expand-indicator').setAttribute('aria-expanded', 'false');
+              c.classList.remove('expanded');
+            });
+            content.style.display = 'block';
+            expandIndicator.textContent = 'Click to collapse';
+            expandIndicator.setAttribute('aria-expanded', 'true');
+            card.classList.add('expanded');
+            setTimeout(() => {
+              const closeBtn = card.querySelector('.close-btn');
+              if (closeBtn) closeBtn.focus();
+            }, 100);
+          }
+        };
+        expandIndicator.onkeydown = function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            expandIndicator.onclick(e);
+          }
+        };
+        // Also allow clicking the card background to expand/collapse
+        card.addEventListener('click', function(e) {
+          if (e.target.classList.contains('close-btn')) {
+            card.querySelector('.recipe-content').style.display = 'none';
+            expandIndicator.textContent = 'Click to expand';
+            expandIndicator.setAttribute('aria-expanded', 'false');
+            card.classList.remove('expanded');
+            e.stopPropagation();
+            return;
+          }
+          if (e.target.classList.contains('share-btn')) {
+            const idx = e.target.getAttribute('data-idx');
+            const row = document.getElementById(`shareRow-${idx}`);
+            document.querySelectorAll('.share-row').forEach(r => { if (r !== row) r.style.display = 'none'; });
+            row.style.display = row.style.display === 'flex' ? 'none' : 'flex';
+            e.stopPropagation();
+            return;
+          }
+          if (e.target.classList.contains('print-btn')) {
+            const idx = e.target.getAttribute('data-idx');
+            printRecipe(e, idx);
+            e.stopPropagation();
+            return;
+          }
+          if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.classList.contains('expand-indicator')) return;
+          expandIndicator.onclick(e);
+        });
+        container.appendChild(card);
+      });
+      // Share/Print event delegation
+      container.querySelectorAll('.share-twitter').forEach(link => {
+        link.onclick = function(e) {
+          e.preventDefault();
+          const idx = link.getAttribute('data-idx');
+          const recipe = allRecipes[idx];
+          const url = window.location.origin + window.location.pathname + `#${encodeURIComponent(recipe.title.replace(/\s+/g, '-').toLowerCase())}`;
+          const text = encodeURIComponent(recipe.title + ' | ' + url);
+          window.open(`https://twitter.com/intent/tweet?text=${text}`,'_blank');
+        };
+      });
+      container.querySelectorAll('.share-facebook').forEach(link => {
+        link.onclick = function(e) {
+          e.preventDefault();
+          const idx = link.getAttribute('data-idx');
+          const recipe = allRecipes[idx];
+          const url = window.location.origin + window.location.pathname + `#${encodeURIComponent(recipe.title.replace(/\s+/g, '-').toLowerCase())}`;
+          window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,'_blank');
+        };
+      });
+      container.querySelectorAll('.share-reddit').forEach(link => {
+        link.onclick = function(e) {
+          e.preventDefault();
+          const idx = link.getAttribute('data-idx');
+          const recipe = allRecipes[idx];
+          const url = window.location.origin + window.location.pathname + `#${encodeURIComponent(recipe.title.replace(/\s+/g, '-').toLowerCase())}`;
+          const title = encodeURIComponent(recipe.title);
+          window.open(`https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${title}`,'_blank');
+        };
+      });
+      container.querySelectorAll('.copy-link').forEach(btn => {
+        btn.onclick = function(e) {
+          e.preventDefault();
+          const idx = btn.getAttribute('data-idx');
+          const recipe = allRecipes[idx];
+          const url = window.location.origin + window.location.pathname + `#${encodeURIComponent(recipe.title.replace(/\s+/g, '-').toLowerCase())}`;
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(url).then(() => alert('Link copied!'));
+          } else {
+            window.prompt('Copy this link:', url);
+          }
+        };
+      });
+      container.querySelectorAll('.copy-text').forEach(btn => {
+        btn.onclick = function(e) {
+          e.preventDefault();
+          const idx = btn.getAttribute('data-idx');
+          const recipe = allRecipes[idx];
+          const url = window.location.origin + window.location.pathname + `#${encodeURIComponent(recipe.title.replace(/\s+/g, '-').toLowerCase())}`;
+          const text = `${recipe.title}\n${recipe.calories || ''} ${recipe.makes ? ' | ' + recipe.makes : ''} ${recipe.time ? ' | ' + recipe.time : ''}\n\nTags: ${(recipe.tags || []).join(', ')}\n\nIngredients:\n${(recipe.ingredients || []).map(ing => '- ' + (ing.icon ? ing.icon + ' ' : '') + ing.item).join('\n')}\n\nInstructions:\n${(recipe.instructions || []).map((step, i) => (i+1)+'. '+step.instruction).join('\n')}\n\n${url}`;
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(() => alert('Recipe text copied!'));
+          } else {
+            window.prompt('Copy this recipe:', text);
+          }
+        };
+      });
+    }
+    function printRecipe(e, idx) {
+      e.stopPropagation();
+      const recipe = allRecipes[idx];
+      const win = window.open('', '', 'width=600,height=800');
+      win.document.write(`<pre style='font-family:Hack,monospace;font-size:1.1em;'>${recipe.title}\n${recipe.calories || ''} ${recipe.makes ? ' | ' + recipe.makes : ''} ${recipe.time ? ' | ' + recipe.time : ''}\n\nTags: ${(recipe.tags || []).join(', ')}\n\nIngredients:\n${(recipe.ingredients || []).map(ing => '- ' + (ing.icon ? ing.icon + ' ' : '') + ing.item).join('\n')}\n\nInstructions:\n${(recipe.instructions || []).map((step, i) => (i+1)+'. '+step.instruction).join('\n')}</pre>`);
+      win.print();
+    }
+    document.getElementById('searchInput').addEventListener('input', renderRecipes);
+    document.getElementById('sortDropdown').addEventListener('change', renderRecipes);
+    // Set year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Light/Dark mode toggle
+    const modeToggle = document.getElementById('modeToggle');
+    function setMode(light) {
+      document.body.classList.toggle('light-mode', light);
+      modeToggle.textContent = light ? 'Dark Mode' : 'Light Mode';
+    }
+    modeToggle.onclick = function() {
+      setMode(!document.body.classList.contains('light-mode'));
+    };
+    // Remove auto-switch to light mode on load
+    </script>
 </body>
 </html>
