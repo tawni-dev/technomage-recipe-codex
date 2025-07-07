@@ -1,0 +1,241 @@
+{
+  "recipes": [
+    {
+      "id": "oat-green-roti",
+      "title": "Oat-Based Green Roti",
+      "calories": "~180 per roti",
+      "makes": "4-6 rotis",
+      "time": "25 minutes",
+      "tags": ["bread", "vegetarian", "gluten-free", "anti-inflammatory", "greens", "quick-meal"],
+      "ingredients": [
+        { "icon": "🥬", "item": "1 cup super greens or spinach" },
+        { "icon": "🌿", "item": "1/4 cup fresh cilantro" },
+        { "icon": "🧄", "item": "1 clove garlic" },
+        { "icon": "🥣", "item": "3/4 cup rolled oats" },
+        { "icon": "💧", "item": "1/4 - 1/2 cup water" },
+        { "icon": "🌶️", "item": "1/2 tsp cumin", "badge": "Anti-inflammatory" }
+      ],
+      "storage": [
+        { "icon": "❄️", "item": "Fridge: 3-4 days in parchment, reheat in pan" },
+        { "icon": "🧊", "item": "Freezer: Up to 1 month" }
+      ],
+      "instructions": [
+        { "step": 1, "instruction": "Blend greens: Add spinach, cilantro, garlic, and 1/4 cup water to blender. Blend until smooth green paste forms." },
+        { "step": 2, "instruction": "Grind oats: In food processor, pulse oats until they form fine flour consistency." },
+        { "step": 3, "instruction": "Make dough: Mix oat flour, green paste, and cumin. Add water gradually until soft, pliable dough forms." },
+        { "step": 4, "instruction": "Rest: Let dough rest 10 minutes covered with damp cloth." },
+        { "step": 5, "instruction": "Roll & cook: Divide into 4-6 balls. Roll thin, cook in hot pan 1-2 minutes per side until spotted." }
+      ]
+    },
+    {
+      "id": "creamy-chicken-soup",
+      "title": "Creamy Chicken Soup",
+      "calories": "~250 per cup",
+      "makes": "3 cups (3 servings)",
+      "time": "20 minutes",
+      "tags": ["soup", "chicken", "protein", "anti-inflammatory", "freezer-friendly", "quick-meal"],
+      "ingredients": [
+        { "icon": "🫒", "item": "1 tbsp olive oil" },
+        { "icon": "🧅", "item": "1/2 large onion, diced" },
+        { "icon": "🥕", "item": "1 carrot, diced" },
+        { "icon": "🥬", "item": "1 celery stalk, diced" },
+        { "icon": "🧄", "item": "2 cloves garlic, minced" },
+        { "icon": "🍲", "item": "3 cups chicken broth" },
+        { "icon": "🍗", "item": "1 cup rotisserie chicken, shredded" },
+        { "icon": "🥛", "item": "1/2 cup Fairlife milk", "badge": "Lighter" },
+        { "icon": "🧈", "item": "1 tbsp light cream cheese" },
+        { "icon": "🌶️", "item": "1/2 tsp turmeric", "badge": "Anti-inflammatory" },
+        { "icon": "🥬", "item": "1 cup fresh spinach", "badge": "Nutrient boost" }
+      ],
+      "tips": [
+        { "icon": "❄️", "item": "Freezes perfectly! Portion in mason jars, leave 1\" headspace" },
+        { "icon": "🔥", "item": "Reheat tip: Microwave from frozen or thaw overnight" },
+        { "icon": "💡", "item": "Beginner tip: Don't let garlic burn - just 30 seconds!" }
+      ],
+      "instructions": [
+        { "step": 1, "instruction": "Heat oil: In large pot, heat olive oil over medium heat for 1 minute." },
+        { "step": 2, "instruction": "Cook vegetables: Add onion, carrots, celery. Cook 5-7 minutes until onion looks clear." },
+        { "step": 3, "instruction": "Add garlic: Add minced garlic, cook 30 seconds until fragrant (don't burn!)." },
+        { "step": 4, "instruction": "Add broth & chicken: Pour in broth, bring to boil. Add chicken and seasonings." },
+        { "step": 5, "instruction": "Make creamy: Whisk milk with cream cheese, slowly stir into soup." },
+        { "step": 6, "instruction": "Add greens: Stir in spinach, cook 2 minutes until wilted. Taste and adjust seasoning." }
+      ]
+    },
+    {
+      "id": "white-chicken-chili",
+      "title": "White Chicken Chili",
+      "calories": "~290 per cup",
+      "makes": "3 cups (3 servings)",
+      "time": "20 minutes",
+      "tags": ["chili", "chicken", "protein", "beans", "freezer-friendly", "quick-meal"],
+      "ingredients": [
+        { "icon": "🫒", "item": "1 tbsp olive oil" },
+        { "icon": "🧅", "item": "1/2 large onion, diced" },
+        { "icon": "🧄", "item": "1 clove garlic, minced" },
+        { "icon": "🌶️", "item": "1/2 can (2 oz) diced green chiles" },
+        { "icon": "🫘", "item": "1 can (15 oz) white beans, drained" },
+        { "icon": "🍲", "item": "1.5 cups chicken broth" },
+        { "icon": "🍗", "item": "1 cup rotisserie chicken, shredded" },
+        { "icon": "🧈", "item": "1/2 tbsp light cream cheese", "badge": "Lighter" },
+        { "icon": "🥛", "item": "1/4 cup Fairlife milk", "badge": "Healthier" },
+        { "icon": "🥛", "item": "Greek yogurt for serving", "badge": "Protein boost" }
+      ],
+      "tips": [
+        { "icon": "🌶️", "item": "Spices: 1/2 tsp cumin, 1/2 tsp oregano, 1/4 tsp chili powder" },
+        { "icon": "❄️", "item": "Freezes perfectly! Cool completely before freezing" },
+        { "icon": "💡", "item": "Serving tip: Add fresh Greek yogurt when reheating" }
+      ],
+      "instructions": [
+        { "step": 1, "instruction": "Heat & sauté: Heat oil, cook onion 5 minutes until clear and soft." },
+        { "step": 2, "instruction": "Add aromatics: Add garlic (30 seconds), then chiles and spices (1 minute)." },
+        { "step": 3, "instruction": "Add beans & broth: Add white beans and broth, bring to boil." },
+        { "step": 4, "instruction": "Simmer with chicken: Add chicken, reduce heat, simmer 15 minutes." },
+        { "step": 5, "instruction": "Make creamy: Whisk cream cheese with milk, stir into chili." },
+        { "step": 6, "instruction": "Serve: Season to taste, top with Greek yogurt instead of sour cream!" }
+      ]
+    },
+    {
+      "id": "cranberry-salsa",
+      "title": "Cranberry Salsa (TECHNOMAGE SIGNATURE!)",
+      "calories": "~35 per 1/4 cup",
+      "makes": "2 cups (8 servings)",
+      "time": "15 minutes",
+      "tags": ["salsa", "cranberry", "vegetarian", "vegan", "signature", "quick-meal"],
+      "ingredients": [
+        { "icon": "🔴", "item": "1 cup fresh cranberries" },
+        { "icon": "🫑", "item": "1/2 red bell pepper, finely diced" },
+        { "icon": "🧅", "item": "1/4 red onion, finely diced" },
+        { "icon": "🌶️", "item": "1/2 jalapeño, seeded & minced (optional)" },
+        { "icon": "🌿", "item": "2 tbsp fresh cilantro, chopped" },
+        { "icon": "🍋", "item": "Juice of 1/2 lime" },
+        { "icon": "🍯", "item": "1 tbsp honey or maple syrup" },
+        { "icon": "🌶️", "item": "1/4 tsp chili powder", "badge": "TECHNOMAGE SIGNATURE!" }
+      ],
+      "tips": [
+        { "icon": "🍗", "item": "Perfect with: Rotisserie chicken, crackers, or as yogurt mix-in" },
+        { "icon": "❄️", "item": "Storage: Keeps 1 week in fridge - flavors get better!" },
+        { "icon": "🧊", "item": "Freeze tip: Freeze in ice cube trays for portion control" }
+      ],
+      "instructions": [
+        { "step": 1, "instruction": "Prep cranberries: Roughly chop fresh cranberries (or pulse in food processor 3-4 times)." },
+        { "step": 2, "instruction": "Dice vegetables: Finely dice bell pepper and onion into small, uniform pieces." },
+        { "step": 3, "instruction": "Prep jalapeño: Cut in half, remove seeds with spoon, mince finely (wash hands after!)." },
+        { "step": 4, "instruction": "Make dressing: In small bowl, whisk lime juice, honey, chili powder, and salt." },
+        { "step": 5, "instruction": "Combine: Mix all ingredients, pour dressing over, stir well." },
+        { "step": 6, "instruction": "Let flavors meld: Rest 15 minutes before serving for best flavor!" }
+      ]
+    },
+    {
+      "id": "harlow-house-salad",
+      "title": "Harlow House Salad",
+      "calories": "~320 per serving",
+      "makes": "1 generous portion",
+      "time": "15 minutes",
+      "tags": ["salad", "vegetarian", "protein", "anti-inflammatory", "beets", "quick-meal"],
+      "ingredients": [
+        { "icon": "🥬", "item": "4 cups mixed organic salad greens" },
+        { "icon": "🔴", "item": "1 large roasted beet, spiralized" },
+        { "icon": "🥕", "item": "1 large carrot, spiralized" },
+        { "icon": "🌻", "item": "2 tbsp sunflower seeds" },
+        { "icon": "🌱", "item": "1 tbsp hemp seeds" },
+        { "icon": "🍗", "item": "3 oz rotisserie chicken", "badge": "Protein boost" }
+      ],
+      "dressing": [
+        { "icon": "🍋", "item": "3 tbsp fresh lemon juice" },
+        { "icon": "🫚", "item": "1 tbsp fresh ginger, grated", "badge": "Anti-inflammatory" },
+        { "icon": "🫒", "item": "2 tbsp olive oil" },
+        { "icon": "🍯", "item": "1 tsp maple syrup or agave" },
+        { "icon": "🧂", "item": "1/4 tsp sea salt + pinch black pepper" }
+      ],
+      "instructions": [
+        { "step": 1, "instruction": "Prep beets: Roast whole beets at 400°F for 45 minutes until tender. Cool, peel, spiralize." },
+        { "step": 2, "instruction": "Make dressing: Whisk all dressing ingredients together in small bowl." },
+        { "step": 3, "instruction": "Spiralize carrot: Use spiralizer or vegetable peeler to create ribbon strips." },
+        { "step": 4, "instruction": "Arrange beautifully: Place greens in bowl, arrange beet and carrot spirals in alternating rings." },
+        { "step": 5, "instruction": "Finish & serve: Sprinkle seeds in center, add chicken, drizzle dressing just before eating." }
+      ]
+    },
+    {
+      "id": "super-greens-lemonade",
+      "title": "Super Greens Lemonade",
+      "calories": "~45 per 16oz",
+      "makes": "1 large serving",
+      "time": "5 minutes",
+      "tags": ["drink", "greens", "detox", "vegan", "quick-meal", "post-workout"],
+      "ingredients": [
+        { "icon": "🥬", "item": "1 cup fresh spinach" },
+        { "icon": "🥬", "item": "1/2 cup kale, stems removed" },
+        { "icon": "🥒", "item": "1/2 cucumber, peeled" },
+        { "icon": "🍋", "item": "Juice of 2 lemons" },
+        { "icon": "🍯", "item": "1-2 tbsp raw honey (or stevia)" },
+        { "icon": "🌱", "item": "1/4 tsp chlorella powder", "badge": "Detox boost" },
+        { "icon": "💧", "item": "1 cup cold water + ice" },
+        { "icon": "🥤", "item": "Sparkling water (optional for fizz)" }
+      ],
+      "tips": [
+        { "icon": "🧊", "item": "Freeze hack: Freeze in ice cube trays for instant green boost" },
+        { "icon": "🥤", "item": "Kombucha mix: Add to your favorite kombucha for probiotic power" },
+        { "icon": "💪", "item": "Post-workout: Perfect for after Chloe Ting workouts" }
+      ],
+      "instructions": [
+        { "step": 1, "instruction": "Blend greens: Add spinach, kale, cucumber, and water to blender. Blend until smooth." },
+        { "step": 2, "instruction": "Strain (optional): Pour through fine mesh strainer for ultra-smooth texture." },
+        { "step": 3, "instruction": "Add flavor: Stir in lemon juice, honey, and chlorella powder until dissolved." },
+        { "step": 4, "instruction": "Serve fresh: Pour over ice, top with sparkling water for fizzy version." },
+        { "step": 5, "instruction": "Storage: Keeps 2 days in fridge - stir before drinking!" }
+      ]
+    },
+    {
+      "id": "frozen-fruit-snacks",
+      "title": "Frozen Fruit Snack Collection",
+      "calories": "45-60 per cup",
+      "makes": "3 cups",
+      "time": "10 min + freeze",
+      "tags": ["snack", "frozen", "fruit", "sweet", "low-calorie", "vegan"],
+      "ingredients": [
+        { "icon": "🍇", "item": "2 cups grapes (any color)" },
+        { "icon": "🔴", "item": "1 cup fresh cranberries" }
+      ],
+      "coatings": [
+        { "icon": "🌶️", "item": "Mexican Lime Chili: Lime juice + chili powder" },
+        { "icon": "🍋", "item": "Lemon Drop: Lemon juice + stevia + cinnamon" },
+        { "icon": "🍊", "item": "Orange Zest: Orange zest + stevia" },
+        { "icon": "🫚", "item": "Ginger Lime: Ginger powder + lime juice" },
+        { "icon": "🍯", "item": "Vanilla Dreams: Vanilla extract + monk fruit" }
+      ],
+      "instructions": [
+        { "step": 1, "instruction": "Prep fruit: Wash and dry grapes and cranberries completely (wet fruit won't coat well)." },
+        { "step": 2, "instruction": "Choose coating: Pick your mood - sweet, spicy, or tart. Mix coating ingredients in small bowl." },
+        { "step": 3, "instruction": "Coat fruit: Toss fruit with coating mixture until evenly covered." },
+        { "step": 4, "instruction": "Freeze single layer: Spread on parchment-lined baking sheet, freeze 2-3 hours." },
+        { "step": 5, "instruction": "Store & enjoy: Transfer to freezer bags. Grab whenever you need a sweet fix!" }
+      ]
+    },
+    {
+      "id": "cranberry-chili-cubes",
+      "title": "Cranberry Chili \"Candy\" Cubes",
+      "calories": "~25 per cube",
+      "makes": "12-15 cubes",
+      "time": "5 min + freeze",
+      "tags": ["snack", "frozen", "sweet", "spicy", "low-calorie", "pre-workout"],
+      "ingredients": [
+        { "icon": "🔴", "item": "1/2 cup cranberry sauce" },
+        { "icon": "🌶️", "item": "1/2 tsp chili powder", "badge": "TECHNOMAGE SIGNATURE!" },
+        { "icon": "🍋", "item": "1 tsp lime juice (optional)" },
+        { "icon": "🧊", "item": "Ice cube trays" }
+      ],
+      "tips": [
+        { "icon": "🍭", "item": "Sweet cravings: Satisfies dessert urges with minimal calories" },
+        { "icon": "🌶️", "item": "Spicy-sweet mood: Unique flavor combination hits all taste buds" },
+        { "icon": "🏃‍♀️", "item": "Pre-workout: Natural energy boost without sugar crash" }
+      ],
+      "instructions": [
+        { "step": 1, "instruction": "Mix ingredients: In small bowl, stir cranberry sauce, chili powder, and lime juice until combined." },
+        { "step": 2, "instruction": "Fill trays: Spoon mixture into ice cube trays, filling each compartment about 3/4 full." },
+        { "step": 3, "instruction": "Freeze solid: Freeze for at least 3 hours or overnight until completely solid." },
+        { "step": 4, "instruction": "Pop & store: Remove from trays, store in freezer bags for up to 3 months." },
+        { "step": 5, "instruction": "Enjoy: Pop one cube when you need a sweet-spicy treat!" }
+      ]
+    }
+  ]
+} 
